@@ -54,6 +54,7 @@ import com.google.location.suplclient.asn1.supl2.ulp_version_2_parameter_extensi
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.util.BitSet;
+import java.util.Calendar;
 import javax.annotation.Nullable;
 
 final class SuplLppMessagesGenerator extends SuplMessagesGenerator {
@@ -91,8 +92,8 @@ final class SuplLppMessagesGenerator extends SuplMessagesGenerator {
   }
 
   @Override
-  public ULP_PDU newSuplPosInitMessage(SessionID sessionId, long latE7, long lngE7) {
-    ULP_PDU ulpPdu = super.newSuplPosInitMessage(sessionId, latE7, lngE7);
+  public ULP_PDU newSuplPosInitMessage(SessionID sessionId, long latE7, long lngE7, Calendar currentTime) {
+    ULP_PDU ulpPdu = super.newSuplPosInitMessage(sessionId, latE7, lngE7, currentTime);
 
     addLppCapability(ulpPdu.getMessage().getMsSUPLPOSINIT());
 

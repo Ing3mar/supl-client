@@ -21,6 +21,9 @@ import com.google.location.suplclient.asn1.supl2.supl_pos.SUPLPOS;
 import com.google.location.suplclient.asn1.supl2.ulp.ULP_PDU;
 import com.google.location.suplclient.asn1.supl2.ulp_components.SessionID;
 import com.google.location.suplclient.ephemeris.EphemerisResponse;
+
+import java.util.Calendar;
+
 import java.util.logging.Logger;
 
 /**
@@ -51,9 +54,9 @@ abstract class SuplClient {
    * <p>A null will be returned if Supl communication fails or if parsing the received message
    * fails.
    */
-  public final EphemerisResponse generateSuplResult(long latE7, long lngE7) {
+  public final EphemerisResponse generateSuplResult(long latE7, long lngE7, Calendar currentTime) {
     try {
-      SUPLPOS message = sendSuplRequest(latE7, lngE7);
+      SUPLPOS message = sendSuplRequest(latE7, lngE7, currentTime);
       return message != null ? suplPosToEphResponse(message) : null;
     } catch (Exception e) {
       e.printStackTrace();
@@ -65,7 +68,7 @@ abstract class SuplClient {
    * Sends a new SUPL request for provided lat/lng pair and returns {@link SUPLPOS} message for
    * assistance data processing.
    */
-  public final SUPLPOS sendSuplRequest(long latE7, long lngE7) {
+  public final SUPLPOS sendSuplRequest(long latE7, long lngE7, Calendar currentTime) {
     try {
       // Establishes a TCP socket that is used to send and receive SUPL messages
       SuplTcpConnection tcpClient = new SuplTcpConnection(request);
@@ -85,7 +88,7 @@ abstract class SuplClient {
       logMessage("SUPL RESPONSE received from server", suplResponseMessage);
       SessionID sessionId = suplResponseMessage.getSessionID();
 
-      ULP_PDU suplPosInitMessage = messagesGenerator.newSuplPosInitMessage(sessionId, latE7, lngE7);
+      ULP_PDU suplPosInitMessage = messagesGenerator.newSuplPosInitMessage(sessionId, latE7, lngE7, currentTime);
       tcpClient.sendSuplRequest(messagesGenerator.encodeUlp(suplPosInitMessage));
       logMessage("SUPL POS INIT sent to server", suplPosInitMessage);
 

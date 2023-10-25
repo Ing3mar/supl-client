@@ -16,6 +16,8 @@ package com.google.location.suplclient.supl;
 
 import com.google.location.suplclient.ephemeris.EphemerisResponse;
 
+import java.util.Calendar;
+
 /**
  * A class that applies the SUPL protocol call flow to obtain GPS assistance data over a TCP
  * connection.
@@ -36,12 +38,12 @@ public class SuplController {
    * Applies the SUPL protocol call flow to obtain the assistance data and store the result in
    * {@link EphemerisResponse}.
    */
-  public EphemerisResponse generateEphResponse(long latE7, long lngE7) {
-    return client.generateSuplResult(latE7, lngE7);
+  public EphemerisResponse generateEphResponse(long latE7, long lngE7, Calendar currentTime) {
+    return client.generateSuplResult(latE7, lngE7, currentTime);
   }
 
   /** Sends a new SUPL request for the provided lat/lng pair. */
-  public void sendSuplRequest(long latE7, long lngE7) {
-    client.sendSuplRequest(latE7, lngE7);
+  public void sendSuplRequest(long latE7, long lngE7, Calendar currentTime) {
+    client.sendSuplRequest(latE7, lngE7, currentTime);
   }
 }

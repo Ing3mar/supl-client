@@ -17,6 +17,10 @@ package com.google.location.suplclient.supl;
 
 import com.google.location.suplclient.ephemeris.EphemerisResponse;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+
 /**
  * SUPL Tester to verify SUPL connections.
  *
@@ -54,7 +58,8 @@ public final class SuplTester {
             .build();
     SuplController suplController = new SuplController(request);
     // Try to call methods to access SUPL server and see if they report any exception
-    suplController.sendSuplRequest(latE7, lngE7);
-    EphemerisResponse ephResponse = suplController.generateEphResponse(latE7, lngE7);
+    Calendar currentTime = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+    suplController.sendSuplRequest(latE7, lngE7, currentTime);
+    EphemerisResponse ephResponse = suplController.generateEphResponse(latE7, lngE7, currentTime);
   }
 }

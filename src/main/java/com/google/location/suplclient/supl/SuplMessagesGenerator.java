@@ -219,7 +219,7 @@ abstract class SuplMessagesGenerator {
    * following the field contents from:
    * /depot/google3/java/com/google/location/lbs/supl/tools/local-location.supl
    */
-  public ULP_PDU newSuplPosInitMessage(SessionID sessionId, long latE7, long lngE7) {
+  public ULP_PDU newSuplPosInitMessage(SessionID sessionId, long latE7, long lngE7, Calendar currentTime) {
     UlpMessage message = newSuplPosInitMessage();
     SUPLPOSINIT suplPosInit = message.getMsSUPLPOSINIT();
 
@@ -243,7 +243,7 @@ abstract class SuplMessagesGenerator {
 
     Position pos = suplPosInit.setPositionToNewInstance();
     timestampType utcTime = pos.setTimestampToNewInstance();
-    Calendar currentTime = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+    // Calendar currentTime = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
     utcTime.setYear(currentTime.get(Calendar.YEAR));
     utcTime.setMonth(currentTime.get(Calendar.MONTH) + 1); // Calendar's MONTH starts from 0.
     utcTime.setDay(currentTime.get(Calendar.DAY_OF_MONTH));

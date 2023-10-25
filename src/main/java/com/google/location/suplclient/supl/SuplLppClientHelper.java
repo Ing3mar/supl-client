@@ -160,6 +160,7 @@ class SuplLppClientHelper {
                   .setWeek(galWeek)
                   .setIode(convertBitSetToInt(element.getIod().getValue()))
                   .setHealth(svHealth)
+                  .setSisa((int)clock.getSisa().getLong())
                   .build());
         }
       }

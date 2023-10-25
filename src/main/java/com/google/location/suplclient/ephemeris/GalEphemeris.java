@@ -17,8 +17,8 @@ package com.google.location.suplclient.ephemeris;
 /** A container for fields in Galileo ephemeris */
 public class GalEphemeris extends KeplerianEphemeris {
 
-  /** Signal in space accuracy (meters) */
-  public final double sisaM;
+  /** Signal in space accuracy index */
+  public final int sisa;
 
   /** The group delay term (seconds) */
   public final double tgdS;
@@ -28,7 +28,7 @@ public class GalEphemeris extends KeplerianEphemeris {
 
   private GalEphemeris(Builder builder) {
     super(builder);
-    sisaM = builder.sisaM;
+    sisa = builder.sisa;
     tgdS = builder.tgdS;
     isINav = builder.isINav;
   }
@@ -41,7 +41,7 @@ public class GalEphemeris extends KeplerianEphemeris {
   /** Builder for {@link GalEphemeris} */
   public static class Builder extends KeplerianEphemeris.Builder<Builder> {
     /** For documentation, see corresponding fields in {@link GalEphemeris}. */
-    private double sisaM;
+    private int sisa;
     private double tgdS;
     private boolean isINav;
 
@@ -52,9 +52,9 @@ public class GalEphemeris extends KeplerianEphemeris {
       return this;
     }
 
-    /** Sets the signal in space accuracy (meters). */
-    public Builder setSisaM(double sisaM) {
-      this.sisaM = sisaM;
+    /** Sets the signal in space accuracy index. */
+    public Builder setSisa(int sisa) {
+      this.sisa = sisa;
       return getThis();
     }
 
